@@ -17,16 +17,23 @@ public class HardwareTicket extends Ticket {
     public boolean isLabCritical() { return labCritical; }
     public int getAffectedUsers() { return affectedUsers; }
 
-    // -----------------------------------------
-    // TODO #2 (Inheritance)
-    // Implement urgencyScore() for hardware tickets.
-    // Suggested scoring:
-    //   score = priority*10 + daysOpen*2
-    //   + (labCritical ? 20 : 0)
-    //   + min(affectedUsers, 30)   // cap user impact
-    //   + (deviceType equalsIgnoreCase "Printer" ? 5 : 0)
-    // Return the final score.
-    // -----------------------------------------
+   @Override
+public int urgencyScore() {
+    int score = priority * 10 + daysOpen * 2;
+
+    if (labCritical) {
+        score += 20;
+    }
+
+    score += Math.min(affectedUsers, 30);
+
+    if (deviceType.equalsIgnoreCase("Printer")) {
+        score += 5;
+    }
+
+    return score;
+}
+----------------------------------------
     @Override
     public int urgencyScore() {
         // TODO #2
